@@ -441,7 +441,7 @@ app.put('/api/profile/:userId', async (req, res) => {
     }
 });
 
-const PORT = 3001;
-app.listen(PORT, () => {
-    console.log(`Сервер запущен на http://localhost:${PORT}`);
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Сервер запущен на порту ${PORT}`);
 });
