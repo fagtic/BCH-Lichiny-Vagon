@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "server": "cd server && nodemon index.js",
+    "server": "cd server && node index.js",
     "start": "concurrently \"npm run dev\" \"cd server && node index.js\"",
     "build": "vite build",
     "lint": "eslint .",
