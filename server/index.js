@@ -441,7 +441,22 @@ app.put('/api/profile/:userId', async (req, res) => {
     }
 });
 
+// Простой тестовый эндпоинт
+app.get('/ping', (req, res) => {
+    res.json({ ok: true, time: new Date().toISOString() });
+});
+
+// Получение порта из окружения Railway
 const PORT = process.env.PORT || 3001;
+
+// Запуск сервера на всех интерфейсах
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Сервер запущен на порту ${PORT}`);
+    console.log(`✅ Сервер успешно запущен на порту ${PORT}`);
+    console.log(`   Слушает: 0.0.0.0:${PORT}`);
+});
+
+// Обработка ошибок
+process.on('SIGTERM', () => {
+    console.log('SIGTERM received, closing server...');
+    process.exit(0);
 });
