@@ -440,6 +440,9 @@ app.put('/api/profile/:userId', async (req, res) => {
         res.status(500).json({ success: false, error: 'Внутренняя ошибка сервера' });
     }
 });
+
+const PORT = process.env.PORT || 3001;
+
 // Запуск сервера
 const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`✅ Сервер успешно запущен на порту ${PORT}`);
