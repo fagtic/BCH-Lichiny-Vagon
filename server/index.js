@@ -441,7 +441,11 @@ app.put('/api/profile/:userId', async (req, res) => {
     }
 });
 
-// Простой тестовый эндпоинт
+// Обязательный эндпоинт для health check (Railway проверяет его)
+app.get('/', (req, res) => {
+    res.json({ status: 'ok', message: 'Server is running' });
+});
+
 app.get('/ping', (req, res) => {
     res.json({ ok: true, time: new Date().toISOString() });
 });
@@ -449,14 +453,17 @@ app.get('/ping', (req, res) => {
 // Получение порта из окружения Railway
 const PORT = process.env.PORT || 3001;
 
-// Запуск сервера на всех интерфейсах
-app.listen(PORT, '0.0.0.0', () => {
+// Запуск сервера
+const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`✅ Сервер успешно запущен на порту ${PORT}`);
     console.log(`   Слушает: 0.0.0.0:${PORT}`);
 });
 
-// Обработка ошибок
+// Обработка SIGTERM (корректное завершение)
 process.on('SIGTERM', () => {
-    console.log('SIGTERM received, closing server...');
-    process.exit(0);
+    console.log('SIGTERM received, closing gracefully...');
+    server.close(() => {
+        console.log('Server closed');
+        process.exit(0);
+    });
 });
