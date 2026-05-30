@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3001/api';
+const API_URL = 'https://bch-lichiny-vagon.onrender.com/api';
 
 export const api = {
     // ========== ПОЛЬЗОВАТЕЛИ ==========
